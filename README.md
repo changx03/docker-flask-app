@@ -3,7 +3,7 @@
 ## Create image
 
 ```bash
-docker build -t <YOUR_NAME>/flask-app
+docker build -t luke/flask-app .
 # -t Tag <tag_name>
 ```
 
@@ -11,9 +11,10 @@ docker build -t <YOUR_NAME>/flask-app
 
 ```bash
 # Expose all ports
-docker run -dP --name my-flask-app <YOUR_NAME>/flask-app
+docker run -dP --name my-flask-app luke/flask-app
 # -d Detach from terminal
 # -P Publish-all ports (map to random ports)
+# --name name-tag for the container (Must be unique!)
 
 # To check ports
 docker port my-flask-app
@@ -22,10 +23,18 @@ docker port my-flask-app
 docker stop my-flask-app
 
 # Map a port
-docker -d -p <LOCAL_PORT>:<CONTAINER_PORT> --name my-flask-app <YOUR_NAME>/flask-app
+docker -d -p <LOCAL_PORT>:<CONTAINER_PORT> --name my-flask-app luke/flask-app
 
 # e.g.,
 docker -d -p 8080:5000 --name my-flask-app luke/flask-app
+# -p port (lower case for mapping 1 port. For multiple ports: e.g., -p 8080:5000 -p 8081:5001)
+
+# Check containers
+docker ps -a
+# -a All, including exited containers
+
+# Remove unused containers
+docker container prune
 ```
 
 ## In `Dockerfile`
